@@ -1,0 +1,44 @@
+services:
+#---------------------------------------------------------------------#
+#     Nginx Proxy Manager - Proxy Manager.                            #
+#---------------------------------------------------------------------#
+  nginxproxy:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - ${NGINX_PUBLIC_PORT}:80 # Public HTTP Port
+      - ${NGINX_PUBLIC_HTTPS_PORT}:443 # Public HTTPS Port
+      - ${NGINX_WEB_PORT}:81 # Nginx Proxy Manager Web UI
+    env_file:
+      - .env
+    environment:
+      # Postgres parameters:
+      DB_POSTGRES_HOST: 'database'
+      DB_POSTGRES_PORT: '5432'
+      DB_POSTGRES_USER: ${DB_POSTGRES_USER}
+      DB_POSTGRES_PASSWORD: ${DB_POSTGRES_PASSWORD}
+      DB_POSTGRES_NAME: ${DB_POSTGRES_NAME}
+    depends_on:
+      - nginx-proxy_db
+    volumes:
+      - nginx-proxy_data:/data
+      - nginx-proxy_letsencrypt:/etc/letsencrypt
+
+  database:
+    image: postgres:latest
+    container_name: nginx-proxy_db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${DB_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${DB_POSTGRES_NAME}
+    volumes:
+      - nginx-proxy_postgres:/var/lib/postgresql/data
+
+volumes:
+  nginx-proxy_data:
+  nginx-proxy_letsencrypt:
+  nginx-proxy_postgres:
