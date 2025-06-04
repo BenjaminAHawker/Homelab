@@ -1,0 +1,77 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/settings
+
+title: {{HOMEPAGE_VAR_HOMEPAGETITLE}}
+startUrl: {{HOMEPAGE_VAR_STARTURL}}
+language: en
+headerStyle: underline
+providers:
+  openweathermap: {{HOMEPAGE_VAR_OPENWEATHERMAPAPIKEY}}
+  weatherapi: {{HOMEPAGE_VAR_WEATHERAPIKEY}}
+  finnhub: {{HOMEPAGE_VAR_FINNHUBAPIKEY}}
+hideVersion: true
+hideErrors: true
+showStats: false
+statusStyle: dot
+color: zinc
+theme: dark
+disableCollapse: true
+background:
+  image: {{HOMEPAGE_VAR_BACKGROUNDIMAGE}}
+favicon: {{HOMEPAGE_VAR_FAVICON}}
+
+layout:
+
+# Tabs - Home, Media, Applications, Tool
+# -----------------------------------------------------
+
+# HOME TAB SERVICES
+  Infrastructure:
+    icon: {{HOMEPAGE_VAR_INFRASTRUCTUREICON}}
+    tab: HOME
+    style: row
+    columns: 3
+    useEqualHeights: true
+  Routing And Firewall:
+    icon: {{HOMEPAGE_VAR_ROUTINGANDFIREWALLICON}}
+    tab: HOME
+    style: row
+    columns: 3
+    useEqualHeights: true
+  Management:
+    icon: {{HOMEPAGE_VAR_MANAGEMENTICON}}
+    tab: HOME
+    style: row
+    columns: 3
+    useEqualHeights: true
+  
+# MEDIA TAB SERVICES
+  Media:
+    icon: {{HOMEPAGE_VAR_MEDIAICON}}
+    tab: MEDIA
+    style: row
+    columns: 3
+    useEqualHeights: true
+
+# APPLICATIONS TAB SERVICES
+  Applications:
+    icon: {{HOMEPAGE_VAR_APPLICATIONSICON}}
+    tab: APPLICATIONS
+    style: row
+    columns: 3
+    useEqualHeights: true
+  Content Management:
+    icon: {{HOMEPAGE_VAR_CONTENTMANAGEMENTICON}}
+    tab: APPLICATIONS
+    style: row
+    columns: 3
+    useEqualHeights: true
+
+# TOOL TAB SERVICES
+  Tools:
+    icon: {{HOMEPAGE_VAR_TOOLSICON}}
+    tab: TOOL
+    style: row
+    columns: 3
+    useEqualHeights: true
