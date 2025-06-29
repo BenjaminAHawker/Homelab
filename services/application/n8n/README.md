@@ -19,3 +19,4 @@ n8n/
 └── data/
     ├── n8n/               # n8n persistent storage
     └── postgres/          # PostgreSQL data volume
+```
