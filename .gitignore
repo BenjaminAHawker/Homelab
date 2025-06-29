@@ -1,2 +1,11 @@
-.env
-._*
+# Ignore all service data folders
+services/*/data/
+
+# Ignore environment variables
+**/.env
+
+# Editor/OS files
+*.log
+*.DS_Store
+*.swp
+*.bak
