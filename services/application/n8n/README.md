@@ -1,4 +1,12 @@
-# 🏡 Hawk Home — n8n Service <img src="../../../assets/img/n8n-logo.png" alt="n8n logo" width="64" style="border-radius: 12px;">
+<p align="center">
+  <img src="../../../assets/img/hhlogo.png" alt="Hawk Home Logo" width="50" style="border-radius: 10px;" />
+  &nbsp;&nbsp;&nbsp;
+  <strong style="font-size: 1.5em;">🏡 Hawk Home — n8n Service</strong>
+  &nbsp;&nbsp;&nbsp;
+  <img src="../../../assets/img/n8n-logo.png" alt="n8n Logo" width="50" style="border-radius: 12px;" />
+</p>
+
+---
 
 ![Status](https://img.shields.io/badge/status-active-success?style=flat-square)
 ![Docker](https://img.shields.io/badge/docker-ready-blue?style=flat-square)
