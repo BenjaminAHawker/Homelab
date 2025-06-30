@@ -1,6 +1,9 @@
 # Ignore all service data folders
 services/*/data/
 
+# But keep the homepage service's data folder
+!services/homepage/data/
+
 # Ignore environment variables
 **/.env
 

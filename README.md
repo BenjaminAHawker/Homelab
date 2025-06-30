@@ -1,5 +1,5 @@
 <p align="left">
-  <img src="assets/img/hhlogo.png" alt="Hawk Home Logo" width="100" style="border-radius: 20px;" />
+  <img src="assets/img/hhlogo.png" alt="Hawk Home Logo" width="60" style="border-radius: 20px;" />
 </p>
 
 <h1 align="left">🏡 Hawk Home -- Personal Homelab</h1>
