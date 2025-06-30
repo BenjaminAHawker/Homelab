@@ -1,9 +1,9 @@
 <p align="center">
   <img src="../../../assets/img/hhlogo.png" alt="Hawk Home Logo" width="50" style="border-radius: 10px;" />
   &nbsp;&nbsp;&nbsp;
-  <strong style="font-size: 1.5em;">📚 Hawk Home — Audiobookshelf Service</strong>
+  <strong style="font-size: 1.5em;">Hawk Home — qBittorrent</strong>
   &nbsp;&nbsp;&nbsp;
-  <img src="../../../assets/img/audiobookshelf.png" alt="audiobookshelf Logo" width="50" style="border-radius: 12px;" />
+  <img src="../../../assets/img/qbittorrent-logo.png" alt="qBittorrent Logo" width="50" style="border-radius: 12px;" />
 </p>
 
 ---
@@ -13,25 +13,23 @@
 ![License](https://img.shields.io/badge/license-private-lightgrey?style=flat-square)
 ![Maintainer](https://img.shields.io/badge/maintainer-HawkerFamily-purple?style=flat-square)
 
-Audiobookshelf is a self-hosted audiobook and podcast manager. This containerized version is configured for the **Hawk Home** homelab with local metadata/config storage and mounted media paths.
+`qBittorrent` is a powerful and feature-rich BitTorrent client. This containerized version is configured for use in the **Hawk Home** homelab stack, with external mounts for media handling and download paths.
 
 This setup:
 - Loads environment variables from a local `.env` file
 - Stores all persistent data in `./data/`
-- Includes both desktop GUI access and a web interface
 
 ---
 
 ## 📁 Directory Structure
 
 ```plaintext
-calibre/
+qbittorrent/
 ├── docker-compose.yaml
 ├── .env                   # Required environment config
-├── setup.sh               
+├── setup.sh               # Startup script
 └── data/
-    ├── config/            # App settings
-    └── metadata/          # Listening progress, bookmarks, users
+    └── config/            # qBittorrent config files
 ```
 
 ## 🔧 Setup Instructions
@@ -44,7 +42,7 @@ Before running the containers, use the provided setup script to create the requi
 chmod +x setup.sh
 ./setup.sh
 ```
-- Creates ./data/config and ./data/metadata  
+- Creates ./data/config
 - Applies `chown -R 1000:1000 data/` so containers have proper access
 
 🧑‍💻 This script is intended to be run as root. If you’re not root, prepend with `sudo`.
@@ -54,11 +52,19 @@ chmod +x setup.sh
 All secrets and hostnames are defined in the `.env` file.
 
 ```env
+# User and Timezone
+PUID=1000
+PGID=1000
 TZ=America/New_York
-AUDIOBOOKSHELF_AUDIOBOOK_PATH=/mnt/audiobook/path
-AUDIOBOOKSHELF_PODCAST_PATH=/mnt/podcast/path
-DATA_PATH=/mnt/data/path
-AUDIOBOOKSHELF_PORT=13378
+
+# Ports
+QBITTORRENT_WEBUI_PORT=8080
+QBITTORRENT_PORT=6881
+QBITTORRENT_LISTENING_PORT=6881
+
+# Paths (adjust as needed)
+QBITTORRENT_TORRENTS_PATH=/mnt/storage/torrents
+QBITTORRENT_MEDIA_PATH=/mnt/media
 ```
 
 ⚠️ Rename to `.env` and do not commit it to source control.
@@ -69,10 +75,9 @@ AUDIOBOOKSHELF_PORT=13378
 docker compose up -d
 ```
 This will:
-
-- Start Audiobookshelf service on port defined in `.env`
-- Mount all persistent data to `./data/`  
-- Load secure config from `.env`  
+- Mount the config, torrent, and media directories
+- Start qBittorrent on the configured ports
+- Preserve data across restarts
 
 ## 🛑 Stop the Service
 ```bash
@@ -81,24 +86,23 @@ docker compose down
 
 ## 🌍 Access
 
-After the container is up, access audiobookshelf at:
+After the container is up, access the qBittorrent Web UI at:
 
 ```plaintext
-http://${Host}:${AUDIOBOOKSHELF_PORT}
+http://${Host}:${QBITTORRENT_WEBUI_PORT}
 ```
-- Set up the first admin user on initial login
-- Add libraries pointing to /audiobooks and /podcasts
 
 ## 🔄 Backup Notes
-- `./data/config`: App config and settings
-- `./data/metadata`: Users, listening progress, bookmarks
-- Media libraries are stored externally and not affected by container restarts
+- Configuration files are stored in ./data/config
+- Downloaded content and media are stored at external paths (/mnt/storage, etc.)
+- Back up both config and data directories as needed
 
-## 🧠 About Calibre
+## 🧠 About qBittorrent
 
-[Audiobookshelf](https://www.audiobookshelf.org/) is an open-source self-hosted audiobook and podcast server with a clean web UI and mobile app support.
+[qBittorrent](https://www.qbittorrent.org/) is a free and reliable BitTorrent client with an intuitive user interface and built-in search engine.
 
-- 📦 GitHub: [advplyr/audiobookshelf](https://github.com/advplyr/audiobookshelf)
+- Docker image: [linuxserver/qbittorrent](https://hub.docker.com/r/linuxserver/qbittorrent)
+- 📦 GitHub: [qbittorrent/qBittorrent](https://github.com/qbittorrent/qBittorrent)
 
 ## 👨‍👩‍👧‍👦 Hawk Home
 

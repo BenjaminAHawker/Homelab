@@ -1,9 +1,9 @@
 <p align="center">
   <img src="../../../assets/img/hhlogo.png" alt="Hawk Home Logo" width="50" style="border-radius: 10px;" />
   &nbsp;&nbsp;&nbsp;
-  <strong style="font-size: 1.5em;">📚 Hawk Home — Audiobookshelf Service</strong>
+  <strong style="font-size: 1.5em;">📚 Hawk Home — Calibre Service</strong>
   &nbsp;&nbsp;&nbsp;
-  <img src="../../../assets/img/audiobookshelf.png" alt="audiobookshelf Logo" width="50" style="border-radius: 12px;" />
+  <img src="../../../assets/img/calibre-logo.png" alt="calibre Logo" width="50" style="border-radius: 12px;" />
 </p>
 
 ---
@@ -13,7 +13,7 @@
 ![License](https://img.shields.io/badge/license-private-lightgrey?style=flat-square)
 ![Maintainer](https://img.shields.io/badge/maintainer-HawkerFamily-purple?style=flat-square)
 
-Audiobookshelf is a self-hosted audiobook and podcast manager. This containerized version is configured for the **Hawk Home** homelab with local metadata/config storage and mounted media paths.
+This folder contains the `Calibre` eBook management service as part of the **Hawk Home** homelab. It uses Docker Compose to run both the Calibre GUI and Calibre Web UI for browser-based library management.
 
 This setup:
 - Loads environment variables from a local `.env` file
@@ -28,10 +28,9 @@ This setup:
 calibre/
 ├── docker-compose.yaml
 ├── .env                   # Required environment config
-├── setup.sh               
 └── data/
-    ├── config/            # App settings
-    └── metadata/          # Listening progress, bookmarks, users
+    ├── config/            # Calibre and Calibre Web config data
+    └── library/           # Calibre eBook library location
 ```
 
 ## 🔧 Setup Instructions
@@ -44,7 +43,7 @@ Before running the containers, use the provided setup script to create the requi
 chmod +x setup.sh
 ./setup.sh
 ```
-- Creates ./data/config and ./data/metadata  
+- Creates ./data/config and ./data/library  
 - Applies `chown -R 1000:1000 data/` so containers have proper access
 
 🧑‍💻 This script is intended to be run as root. If you’re not root, prepend with `sudo`.
@@ -54,11 +53,16 @@ chmod +x setup.sh
 All secrets and hostnames are defined in the `.env` file.
 
 ```env
-TZ=America/New_York
-AUDIOBOOKSHELF_AUDIOBOOK_PATH=/mnt/audiobook/path
-AUDIOBOOKSHELF_PODCAST_PATH=/mnt/podcast/path
-DATA_PATH=/mnt/data/path
-AUDIOBOOKSHELF_PORT=13378
+CALIBRE_USER=admin
+CALIBRE_PASSWORD=changeme
+CALIBRE_DATA_PATH=/path/to/ebooks
+CALIBRE_DESKTOP_UI_PORT=8080
+CALIBRE_DESKTOP_HTTPS_PORT=8181
+CALIBRE_WEBSERVER_PORT=8081
+CALIBRE_WEB_PORT=8083
+PUID=1000
+PGID=1000
+TZ=UTC
 ```
 
 ⚠️ Rename to `.env` and do not commit it to source control.
@@ -70,7 +74,7 @@ docker compose up -d
 ```
 This will:
 
-- Start Audiobookshelf service on port defined in `.env`
+- Start both Calibre and Calibre Web  
 - Mount all persistent data to `./data/`  
 - Load secure config from `.env`  
 
@@ -79,26 +83,19 @@ This will:
 docker compose down
 ```
 
-## 🌍 Access
-
-After the container is up, access audiobookshelf at:
-
-```plaintext
-http://${Host}:${AUDIOBOOKSHELF_PORT}
-```
-- Set up the first admin user on initial login
-- Add libraries pointing to /audiobooks and /podcasts
-
 ## 🔄 Backup Notes
-- `./data/config`: App config and settings
-- `./data/metadata`: Users, listening progress, bookmarks
-- Media libraries are stored externally and not affected by container restarts
+- All Calibre settings and metadata are stored in `./data/config/`
+- The eBook library is located in `./data/library/`
+- You can archive the whole `data/` folder for backups
 
 ## 🧠 About Calibre
 
-[Audiobookshelf](https://www.audiobookshelf.org/) is an open-source self-hosted audiobook and podcast server with a clean web UI and mobile app support.
+[Calibre](https://calibre-ebook.com/) is a powerful eBook manager that lets you view, convert, edit, and catalog eBooks across all major formats.
 
-- 📦 GitHub: [advplyr/audiobookshelf](https://github.com/advplyr/audiobookshelf)
+- 🌐 Website: [https://calibre-ebook.com/](https://calibre-ebook.com/)
+- 📦 GitHub: [kovidgoyal/calibre](https://github.com/kovidgoyal/calibre)
+
+[Calibre Web](https://github.com/janeczku/calibre-web) is a web app for browsing, reading, and downloading eBooks stored in a Calibre database.
 
 ## 👨‍👩‍👧‍👦 Hawk Home
 

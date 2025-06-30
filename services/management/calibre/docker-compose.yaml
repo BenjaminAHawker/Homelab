@@ -1,0 +1,47 @@
+services:
+  #---------------------------------------------------------------------#
+  #     Calibre - eBook Management.                                     #
+  #---------------------------------------------------------------------#  
+  calibre:
+    image: lscr.io/linuxserver/calibre:latest
+    container_name: calibre
+    restart: always
+    ports:
+      - ${CALIBRE_DESKTOP_UI_PORT}:8080
+      - ${CALIBRE_DESKTOP_HTTPS_PORT}:8181
+      - ${CALIBRE_WEBSERVER_PORT}:8081
+    env_file:
+      - .env
+    security_opt:
+      - seccomp:unconfined # optional
+    environment:
+      - CUSTOM_USER=${CALIBRE_USER}
+      - PASSWORD=${CALIBRE_PASSWORD}
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - .data/config:/config
+      - .data/library:/library # Path to the Calibre library
+      - ${CALIBRE_DATA_PATH}:/data # Path to the storage location of your books to import into Calibre
+
+  #---------------------------------------------------------------------#
+  #     Calibre Web - Web UI For Calibre Database.                      #
+  #---------------------------------------------------------------------#  
+  calibre-web:
+    image: lscr.io/linuxserver/calibre-web:latest
+    container_name: calibre-web
+    restart: unless-stopped
+    ports:
+      - ${CALIBRE_WEB_PORT}:8083
+    env_file:
+      - .env
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - DOCKER_MODS=linuxserver/mods:universal-calibre # optional
+      - OAUTHLIB_RELAX_TOKEN_SCOPE=1                   # optional
+    volumes:
+      - .data/config:/config
+      - .data/library:/library # Path to the Calibre library 
