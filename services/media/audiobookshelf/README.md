@@ -1,107 +1,105 @@
-# Audiobookshelf Docker Compose Configuration
+<p align="center">
+  <img src="../../../assets/img/hhlogo.png" alt="Hawk Home Logo" width="50" style="border-radius: 10px;" />
+  &nbsp;&nbsp;&nbsp;
+  <strong style="font-size: 1.5em;">📚 Hawk Home — Audiobookshelf Service</strong>
+  &nbsp;&nbsp;&nbsp;
+  <img src="../../../assets/img/audiobookshelf.png" alt="audiobookshelf Logo" width="50" style="border-radius: 12px;" />
+</p>
 
-This document provides an overview of the Docker Compose configuration for deploying **Audiobookshelf**, a self-hosted audiobook and podcast manager.
+---
 
-<details>
-    <summary>Click to view docker-compose.yaml configuration</summary>
+![Status](https://img.shields.io/badge/status-active-success?style=flat-square)
+![Docker](https://img.shields.io/badge/docker-ready-blue?style=flat-square)
+![License](https://img.shields.io/badge/license-private-lightgrey?style=flat-square)
+![Maintainer](https://img.shields.io/badge/maintainer-HawkerFamily-purple?style=flat-square)
 
-```yaml
-services:
-#---------------------------------------------------------------------#
-#     Audiobookshelf - Audiobook Manager.                             #
-#---------------------------------------------------------------------#
-  audiobookshelf:
-    image: ghcr.io/advplyr/audiobookshelf:latest
-    container_name: audiobookshelf
-    restart: always
-    ports:
-      - ${AUDIOBOOKSHELF_PORT}:80
-    env_file:
-      - .env
-    environment:
-      - TZ=${TZ}
-    volumes:
-      - ${AUDIOBOOKSHELF_AUDIOBOOK_PATH}:/audiobooks
-      - ${AUDIOBOOKSHELF_PODCAST_PATH}:/podcasts
-      - audiobookshelf_metadata:/metadata
-      - audiobookshelf_config:/config
+Audiobookshelf is a self-hosted audiobook and podcast manager. This containerized version is configured for the **Hawk Home** homelab with local metadata/config storage and mounted media paths.
 
-volumes:
-  audiobookshelf_metadata:
-    driver: local
-  audiobookshelf_config:
-    driver: local
+This setup:
+- Loads environment variables from a local `.env` file
+- Stores all persistent data in `./data/`
+- Includes both desktop GUI access and a web interface
+
+---
+
+## 📁 Directory Structure
+
+```plaintext
+calibre/
+├── docker-compose.yaml
+├── .env                   # Required environment config
+├── setup.sh               
+└── data/
+    ├── config/            # App settings
+    └── metadata/          # Listening progress, bookmarks, users
 ```
 
-```.env
-AUDIOBOOKSHELF_AUDIOBOOK_PATH=
-AUDIOBOOKSHELF_PODCAST_PATH=
-AUDIOBOOKSHELF_PORT=
+## 🔧 Setup Instructions
+
+Before running the containers, use the provided setup script to create the required folders and apply the correct ownership for Docker volumes.
+
+1. Run the Setup Script (as root)
+
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+- Creates ./data/config and ./data/metadata  
+- Applies `chown -R 1000:1000 data/` so containers have proper access
+
+🧑‍💻 This script is intended to be run as root. If you’re not root, prepend with `sudo`.
+
+## ⚙️ Environment Configuration
+
+All secrets and hostnames are defined in the `.env` file.
+
+```env
+TZ=America/New_York
+AUDIOBOOKSHELF_AUDIOBOOK_PATH=/mnt/audiobook/path
+AUDIOBOOKSHELF_PODCAST_PATH=/mnt/podcast/path
+DATA_PATH=/mnt/data/path
+AUDIOBOOKSHELF_PORT=13378
 ```
 
-</details>
+⚠️ Rename to `.env` and do not commit it to source control.
 
----
+## 🚀 Start the Service
 
-## Service Overview
+```bash
+docker compose up -d
+```
+This will:
 
-### `audiobookshelf`
-The main service for running the Audiobookshelf application.
+- Start Audiobookshelf service on port defined in `.env`
+- Mount all persistent data to `./data/`  
+- Load secure config from `.env`  
 
-- **Image**: `ghcr.io/advplyr/audiobookshelf:latest`
-- **Container Name**: `audiobookshelf`
-- **Restart Policy**: `always`
-- **Ports**:
-  - `${AUDIOBOOKSHELF_PORT}:80` - Exposes the Audiobookshelf web interface on the specified host port.
-- **Environment Variables**:
-  - `TZ`: Timezone for the container (e.g., `America/New_York`).
-- **Volumes**:
-  - `${AUDIOBOOKSHELF_AUDIOBOOK_PATH}:/audiobooks` - Stores audiobook files.
-  - `${AUDIOBOOKSHELF_PODCAST_PATH}:/podcasts` - Stores podcast files.
-  - `audiobookshelf_metadata:/metadata` - Stores metadata for audiobooks and podcasts.
-  - `audiobookshelf_config:/config` - Stores configuration files.
+## 🛑 Stop the Service
+```bash
+docker compose down
+```
 
----
+## 🌍 Access
 
-## Volumes
+After the container is up, access audiobookshelf at:
 
+```plaintext
+http://${Host}:${AUDIOBOOKSHELF_PORT}
+```
+- Set up the first admin user on initial login
+- Add libraries pointing to /audiobooks and /podcasts
 
-### `audiobookshelf_config`
-- **Driver**: `local`
+## 🔄 Backup Notes
+- `./data/config`: App config and settings
+- `./data/metadata`: Users, listening progress, bookmarks
+- Media libraries are stored externally and not affected by container restarts
 
-This volume ensures that configuration files are persisted across container restarts.
+## 🧠 About Calibre
 
-### `audiobookshelf_metadata`
-- **Driver**: `local`
+[Audiobookshelf](https://www.audiobookshelf.org/) is an open-source self-hosted audiobook and podcast server with a clean web UI and mobile app support.
 
-This volume ensures that metadata files are persisted across container restarts.
+- 📦 GitHub: [advplyr/audiobookshelf](https://github.com/advplyr/audiobookshelf)
 
----
+## 👨‍👩‍👧‍👦 Hawk Home
 
-## Usage
-
-## Prerequisites
-
-Ensure the `.env` file is properly configured with the required environment variables:
-
-| Variable Name                | Description                                      | Example Value         |
-|------------------------------|--------------------------------------------------|-----------------------|
-| `AUDIOBOOKSHELF_PORT`        | Port on the host for Audiobookshelf.             | `13378`              |
-| `TZ`                         | Timezone for the container.                      | `America/New_York`   |
-| `AUDIOBOOKSHELF_AUDIOBOOK_PATH` | Path to the directory containing audiobooks.    | `/path/to/audiobooks` |
-| `AUDIOBOOKSHELF_PODCAST_PATH`  | Path to the directory containing podcasts.       | `/path/to/podcasts`   |
-
----
-
-Ensure all variables are properly set in the `.env` file before starting the services.
-
-1. Ensure the `.env` file is properly configured with the required environment variables
-2. Start the services using Docker Compose:
-     ```bash
-     docker-compose up -d
-     ```
-3. Access the Audiobookshelf web interface in your browser:
-    - URL: http://<host>:${AUDIOBOOKSHELF_PORT}
-
-
-For more information, refer to the [Audiobookshelf documentation](https://github.com/advplyr/audiobookshelf).
+Part of the Hawk Home homelab system — a modular, self-hosted stack for the Hawker family.

@@ -40,7 +40,6 @@ Before running the containers, use the provided setup script to create the requi
 1. Run the Setup Script (as root)
 
 ```bash
-cd services/calibre
 chmod +x setup.sh
 ./setup.sh
 ```
