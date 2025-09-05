@@ -17,7 +17,7 @@ if [ ! -d "$DATA_DIR" ]; then
 fi
 
 # Create subdirectories
-echo "📁 Creating subdirectories for n8n and postgres..."
+echo "📁 Creating subdirectories for mealie and postgres..."
 mkdir -p "$MEALIE_DIR"
 mkdir -p "$POSTGRES_DIR"
 
