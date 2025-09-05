@@ -42,7 +42,7 @@ Before running the containers, use the provided setup script to create the requi
 1. Run the Setup Script (as root)
 
 ```bash
-cd services/mealie-recipies
+cd services/mealie-recipes
 chmod +x setup.sh
 ./setup.sh
 ```
