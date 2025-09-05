@@ -27,7 +27,7 @@ This setup:
 ## 📁 Directory Structure
 
 ```plaintext
-n8n/
+gotify/
 ├── docker-compose.yaml
 ├── .env                   # Required environment config
 └── data/
