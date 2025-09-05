@@ -88,7 +88,7 @@ docker compose down
 - PostgreSQL data is stored in ./data/postgres/
 - You can archive the whole data/ folder for backups
 
-## 🧠 About n8n
+## 🧠 About Gotify
 
 [Gotify](https://gotify.net) is a self-hosted push notification server. It enables sending messages from applications or scripts to mobile and desktop clients.
 
