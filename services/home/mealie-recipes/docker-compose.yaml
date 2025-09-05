@@ -1,0 +1,63 @@
+services:
+#---------------------------------------------------------------------#
+#     Mealie - Recipe Manager                                         #
+#---------------------------------------------------------------------#
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:v3.1.2
+    container_name: mealie
+    restart: always
+    env_file:
+      - .env
+    environment:
+      ALLOW_SIGNUP: "false"
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+      BASE_URL: ${MEALIE_BASE_URL}
+      # Database configuration
+      DB_TYPE: postgres
+      POSTGRES_USER: ${MEALIE_DB_USER}
+      POSTGRES_PASSWORD: ${MEALIE_DB_PASSWORD}
+      POSTGRES_SERVER: mealie-db
+      POSTGRES_PORT: ${MEALIE_DB_PORT}
+      POSTGRES_DB: ${MEALIE_DB_NAME}
+      # Optional settings for OIDC authentication
+      OIDC_AUTH_ENABLED: ${MEALIE_OIDC_AUTH_ENABLED}
+      OIDC_PROVIDER_NAME: ${MEALIE_OIDC_PROVIDER_NAME}
+      OIDC_CLIENT_ID: ${MEALIE_OIDC_CLIENT_ID}
+      OIDC_CLIENT_SECRET: ${MEALIE_OIDC_CLIENT_SECRET}
+      OIDC_CONFIGURATION_URL: ${MEALIE_OIDC_CONFIGURATION_URL}
+      OIDC_REMEMBER_ME: ${MEALIE_OIDC_REMEMBER_ME}
+    volumes:
+      - ./data/mealie:/app/data
+    ports:
+      - "${MEALIE_PORT}:9000"
+    depends_on:
+      - mealie-db
+    deploy:
+      resources:
+        limits:
+          memory: 1000M # 1GB
+
+#---------------------------------------------------------------------#
+#     PostgreSQL Database for Mealie                                  #
+#---------------------------------------------------------------------#
+  mealie-db:
+    image: postgres:17
+    container_name: mealie-db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      PGUSER: ${MEALIE_DB_USER}
+      POSTGRES_USER: ${MEALIE_DB_USER}
+      POSTGRES_PASSWORD: ${MEALIE_DB_PASSWORD}
+      POSTGRES_DB: ${MEALIE_DB_NAME}
+      POSTGRES_PORT: ${MEALIE_DB_PORT}
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
