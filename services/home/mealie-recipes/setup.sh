@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Hawk Home - n8n Service Data Setup Script (for root user)
+# Hawk Home - Mealie Service Data Setup Script (for root user)
 
 DATA_DIR="data"
 MEALIE_DIR="$DATA_DIR/mealie"
