@@ -1,7 +1,7 @@
 <p align="center">
   <img src="../../../assets/img/hhlogo.png" alt="Hawk Home Logo" width="50" style="border-radius: 10px;" />
   &nbsp;&nbsp;&nbsp;
-  <strong style="font-size: 1.5em;">🏡 Hawk Home — n8n Service</strong>
+  <strong style="font-size: 1.5em;">Hawk Home — n8n Service</strong>
   &nbsp;&nbsp;&nbsp;
   <img src="../../../assets/img/n8n-logo.png" alt="n8n Logo" width="50" style="border-radius: 12px;" />
 </p>
@@ -12,6 +12,7 @@
 ![Docker](https://img.shields.io/badge/docker-ready-blue?style=flat-square)
 ![License](https://img.shields.io/badge/license-private-lightgrey?style=flat-square)
 ![Maintainer](https://img.shields.io/badge/maintainer-HawkerFamily-purple?style=flat-square)
+![Stack](https://img.shields.io/badge/stack-Core-orange?style=flat-square)
 
 This folder contains the `n8n` workflow automation service as part of the **Hawk Home** homelab. It uses Docker Compose and a PostgreSQL backend for persistence.
 
