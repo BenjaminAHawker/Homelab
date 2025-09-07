@@ -6,6 +6,8 @@ services:
     image: gotify/server:latest
     container_name: gotify
     restart: unless-stopped
+    env_file: 
+      - .env
     ports:
       - ${GOTIFY_PORT}:80
     environment:
@@ -21,6 +23,8 @@ services:
     image: postgres:17
     container_name: gotify-postgres
     restart: unless-stopped
+    env_file: 
+      - .env
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}

@@ -1,0 +1,18 @@
+watch:
+  workers: ${DIUN_WATCH_WORKERS}
+  schedule: ${DIUN_WATCH_SCHEDULE}
+  firstCheckNotif: true
+
+providers:
+  docker: {}
+  file:
+    filename: /config/images.yml
+
+notif:
+  gotify:
+    endpoint: "${GOTIFY_ENDPOINT}"   # e.g. https://gotify.example.com
+    token: "${GOTIFY_TOKEN}"         # gotify app token
+    priority: ${GOTIFY_PRIORITY:-5}  # default to 5 if unset
+
+db:
+  path: /data/diun.db

@@ -1,0 +1,5 @@
+# /images.yaml
+# Diun configuration file
+- name: library/nginx:latest
+- name: postgres:17
+- name: redis:7-alpine
