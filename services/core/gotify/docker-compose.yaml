@@ -18,6 +18,9 @@ services:
       - ./data/gotify:/app/data
     depends_on:
       - postgres
+    labels:
+      - "diun.enable=true"
+      - "diun.watch_repos=true"
 
   postgres:
     image: postgres:17

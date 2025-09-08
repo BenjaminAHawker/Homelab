@@ -12,3 +12,6 @@ services:
     environment:
       - TZ=${TZ}    # adjust your timezone
     command: serve
+    labels:
+      - "diun.enable=true"
+      - "diun.watch_repos=true"
