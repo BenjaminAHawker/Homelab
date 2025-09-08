@@ -17,7 +17,7 @@ if [ ! -d "$DATA_DIR" ]; then
 fi
 
 # Create subdirectories
-echo "📁 Creating subdirectories for n8n and postgres..."
+echo "📁 Creating subdirectories for portainer and portainer-agent..."
 mkdir -p "$PORTAINER_DIR"
 mkdir -p "$AGENT_DIR"
 
