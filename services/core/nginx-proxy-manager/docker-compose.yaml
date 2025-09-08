@@ -29,7 +29,7 @@ services:
       - default
     labels:
       - "diun.enable=true"
-      - "diun.watch_repos=true"
+      - "diun.watch_repo=true"
 
   #---------------------------------------------------------------------#
   #     PostgreSQL Database for Nginx Proxy Manager                     #

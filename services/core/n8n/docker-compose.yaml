@@ -29,7 +29,7 @@ services:
         condition: service_healthy
     labels:
       - "diun.enable=true"
-      - "diun.watch_repos=true"
+      - "diun.watch_repo=true"
 
   n8n-db:
     image: postgres:17

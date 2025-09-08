@@ -20,7 +20,7 @@ services:
       - postgres
     labels:
       - "diun.enable=true"
-      - "diun.watch_repos=true"
+      - "diun.watch_repo=true"
 
   postgres:
     image: postgres:17

@@ -6,7 +6,7 @@ watch:
 providers:
   docker: {}
   file:
-    filename: /config/images.yml
+    filename: /config/images.yaml
 
 notif:
   gotify:
