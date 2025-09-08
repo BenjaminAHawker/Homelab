@@ -78,6 +78,16 @@ This will:
 - Mount all persistent data to ./data/</br>
 - Load secure config from .env</br>
 
+## 🔗 Access
+
+Access Web UI at http://GOTIFY_HOST:${GOTIFY_PORT}/ </br>
+
+- Default Login
+  - Username: Admin
+  - Password: Admin
+
+
+
 ## 🛑 Stop the Service
 ```bash
 docker compose down
