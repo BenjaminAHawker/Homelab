@@ -41,6 +41,7 @@ services:
     ports:
       - ${PORTAINER_WEB_PORT}:9000
       - ${PORTAINER_PORT}:8000
+      - ${PORTAINER_PORT_TLS}:9443
     labels:
       - "diun.enable=true"
       - "diun.include_tags=latest"
