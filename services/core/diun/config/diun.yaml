@@ -1,18 +1,15 @@
 watch:
-  workers: ${DIUN_WATCH_WORKERS}
-  schedule: ${DIUN_WATCH_SCHEDULE}
   firstCheckNotif: true
 
 providers:
-  docker: {}
+  docker:
+    watchByDefault: false
   file:
     filename: /config/images.yaml
 
 notif:
   gotify:
-    endpoint: "${GOTIFY_ENDPOINT}"   # e.g. https://gotify.example.com
-    token: "${GOTIFY_TOKEN}"         # gotify app token
-    priority: ${GOTIFY_PRIORITY:-5}  # default to 5 if unset
+    templateTitle: "{{ .Entry.Image }} released"
 
 db:
   path: /data/diun.db

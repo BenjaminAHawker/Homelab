@@ -23,7 +23,8 @@ services:
         constraints: [node.platform.os == linux]
     labels:
       - "diun.enable=true"
-      - "diun.watch_repos=true"
+      - "diun.include_tags=latest"
+      - "diun.watch_repo=true"
 #---------------------------------------------------------------------#
 #     Portainer - Web UI Management of Docker Containers.             #
 #---------------------------------------------------------------------#
@@ -42,4 +43,5 @@ services:
       - ${PORTAINER_PORT}:8000
     labels:
       - "diun.enable=true"
+      - "diun.include_tags=latest"
       - "diun.watch_repo=true"
