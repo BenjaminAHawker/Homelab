@@ -11,7 +11,7 @@ services:
       - ./data:/data            # for diun.db state
     environment:
       - TZ=${TZ}    # adjust your timezone
-      - CONFIG = /config/diun.yaml
+      - CONFIG=/config/diun.yaml
     command: serve
     labels:
       - "diun.enable=true"
