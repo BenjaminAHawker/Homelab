@@ -20,6 +20,7 @@ services:
       - postgres
     labels:
       - "diun.enable=true"
+      - "diun.include_tags=latest"
       - "diun.watch_repo=true"
 
   postgres:
@@ -40,3 +41,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    labels:
+      - "diun.enable=true"
+      - "diun.include_tags=latest"
+      - "diun.watch_repo=true"

@@ -29,6 +29,7 @@ services:
       - default
     labels:
       - "diun.enable=true"
+      - "diun.include_tags=latest"
       - "diun.watch_repo=true"
 
   #---------------------------------------------------------------------#
