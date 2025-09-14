@@ -21,6 +21,7 @@ services:
       DB_DATABASE: ${POSTGRES_DB}
       DB_USERNAME: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
+      SPEEDTEST_SCHEDULE: '0 * * * *'  # Cron expression for scheduling tests (default: hourly)
     volumes:
       - ./data/speedtest:/config
       - ./data/keys:/config/keys
