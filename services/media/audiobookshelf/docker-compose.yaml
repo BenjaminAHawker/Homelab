@@ -13,8 +13,8 @@ services:
     environment:
       - TZ=${TZ}
     volumes:
-      - ${AUDIOBOOKSHELF_AUDIOBOOK_PATH}:/audiobooks # Path To Audiobooks
-      - ${AUDIOBOOKSHELF_PODCAST_PATH}:/podcasts # Path To Podcasts
+      - ${AUDIOBOOKSHELF_AUDIOBOOK_PATH}:/data/audiobooks # Path To Audiobooks
+      - ${AUDIOBOOKSHELF_PODCAST_PATH}:/data/podcasts # Path To Podcasts
       - ./data/metadata:/metadata
       - ./data/config:/config
 

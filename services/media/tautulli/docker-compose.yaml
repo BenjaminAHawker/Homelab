@@ -1,0 +1,15 @@
+services:
+  tautulli:
+    image: ghcr.io/tautulli/tautulli
+    container_name: tautulli
+    restart: unless-stopped
+    env_file: 
+      - .env
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./data/config:/config
+    ports:
+      - ${TAUTULLI_PORT}:${TAUTULLI_PORT} # Tautulli Web UI

@@ -1,0 +1,19 @@
+services:
+#---------------------------------------------------------------------#
+#     Komga - Manga & Comic Book Reader.                              #
+#---------------------------------------------------------------------#  
+  komga:
+    image: gotson/komga
+    container_name: komga
+    restart: unless-stopped
+    env_file: 
+      - .env
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./data/config:/config
+      - ${KOMGA_DATA_PATH}:/data # This is the path where your comics/manga will be stored
+    ports: 
+      - ${KOMGA_PORT}:25600
