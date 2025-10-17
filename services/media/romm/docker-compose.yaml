@@ -1,0 +1,79 @@
+services:
+#---------------------------------------------------------------------#
+#     Romm - A beautiful,powerful,self-hosted rom manager.            #
+#---------------------------------------------------------------------#
+  romm:
+    image: rommapp/romm:latest
+    container_name: romm
+    restart: always
+    ports:
+      - ${ROMM_PORT}:${ROMM_PORT}
+    env_file:
+      - .env
+    environment:
+      # General Settings
+      - TZ=${TZ} # Set your timezone
+      - ROMM_AUTH_SECRET_KEY=${ROMM_AUTH_SECRET} # Generate a key with `openssl rand -hex 32`
+      # Database Settings
+      - DB_HOST=mariadb-romm
+      - DB_NAME=${ROMM_DB_NAME} # Should match MARIADB_DATABASE in mariadb
+      - DB_USER=${ROMM_DB_USER} # Should match MARIADB_USER in mariadb
+      - DB_PASSWD=${ROMM_DB_PASS} # Should match MARIADB_PASSWORD in mariadb
+      # Metadata Provider Settings
+      - IGDB_CLIENT_ID=${IGDB_CLIENT_ID} # Generate an ID and SECRET in IGDB
+      - IGDB_CLIENT_SECRET=${IGDB_CLIENT_SECRET} # https://api-docs.igdb.com/#account-creation
+      - MOBYGAMES_API_KEY=${MOBYGAMES_KEY} # https://www.mobygames.com/info/api/
+      - STEAMGRIDDB_API_KEY=${STEAMGRID_KEY} # https://github.com/rommapp/romm/wiki/Generate-API-Keys#steamgriddb
+      - SCREENSCRAPER_USER=${SCREENSCRAPER_USER} # https://www.screenscraper.fr/apidocs/v4.0/
+      - SCREENSCRAPER_PASSWORD=${SCREENSCRAPER_PASS} # https://www.screenscraper.fr/apidocs/v4.0/
+      - HASHEOUS_API_ENABLED=true # Set to true to enable Hasheous API
+      - PLAYMATCH_API_ENABLED=true # Set to true to enable PlayMatch API
+      - RETROACHIEVEMENTS_API_KEY=${RETROACHIEVEMENTS_KEY} # https://retroachievements.org/
+      - ENABLE_SCHEDULED_RETROACHIEVEMENTS_PROGRESS_SYNC=true # Set to true to enable scheduled RetroAchievements progress sync
+      - SCHEDULED_RETROACHIEVEMENTS_PROGRESS_SYNC_CRON="0 4 * * *" # Cron expression for scheduled RetroAchievements progress sync (default: daily at 4 AM)
+      # OIDC SETTINGS
+      - OIDC_ENABLED=${OIDC_ENABLED-false} # Set to true to enable OIDC
+      - OIDC_PROVIDER=${OIDC_PROVIDER} # Set to the OIDC provider URL
+      - OIDC_CLIENT_ID=${OIDC_CLIENT_ID} # Set to the OIDC client ID
+      - OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET} # Set to the OIDC client secret
+      - OIDC_REDIRECT_URI=${OIDC_REDIRECT_URI} # Set to the OIDC redirect URI
+      - OIDC_SERVER_APPLICATION_URL=${OIDC_SERVER_APPLICATION_URL} # Set to the OIDC server application URL
+      # Tinfoil Settings
+      - DISABLE_DOWNLOAD_ENDPOINT_AUTH=true # Set to true to disable auth on download endpoint
+    volumes:
+      - ./data/romm/resources:/romm/resources
+      - ./data/romm/redis:/redis-data
+      - ${ROMM_LIBRARY_PATH}:/romm/library
+      - ./data/romm/assets:/romm/assets
+      - ./data/romm/config:/romm/config
+    depends_on:
+      database:
+        condition: service_healthy
+        restart: true
+#---------------------------------------------------------------------#
+#     Mariadb - Database for Romm Application                         #
+#---------------------------------------------------------------------#
+  database:
+      image: mariadb:latest
+      container_name: mariadb-romm
+      restart: always
+      env_file:
+        - .env
+      ports:
+          - ${ROMM_DB_PORT}:3306
+      environment:
+          - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASS} # Use a unique, secure password
+          - MARIADB_DATABASE=${ROMM_DB_NAME} # Should match DB_NAME in romm
+          - MARIADB_USER=${ROMM_DB_USER} # Should match DB_USER in romm
+          - MARIADB_PASSWORD=${ROMM_DB_PASS} # Should match DB_PASSWD in romm
+          - MARIADB_USER=${ROMM_DB_USER} # Should match DB_USER in romm
+          - MARIADB_PASSWORD=${ROMM_DB_PASS} # Should match DB_PASSWD in romm
+      volumes:
+          - ./data/db:/var/lib/mysql
+      healthcheck:
+          test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+          start_period: 30s
+          start_interval: 10s
+          interval: 10s
+          timeout: 5s
+          retries: 5
