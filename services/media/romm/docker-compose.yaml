@@ -66,8 +66,6 @@ services:
           - MARIADB_DATABASE=${ROMM_DB_NAME} # Should match DB_NAME in romm
           - MARIADB_USER=${ROMM_DB_USER} # Should match DB_USER in romm
           - MARIADB_PASSWORD=${ROMM_DB_PASS} # Should match DB_PASSWD in romm
-          - MARIADB_USER=${ROMM_DB_USER} # Should match DB_USER in romm
-          - MARIADB_PASSWORD=${ROMM_DB_PASS} # Should match DB_PASSWD in romm
       volumes:
           - ./data/db:/var/lib/mysql
       healthcheck:
