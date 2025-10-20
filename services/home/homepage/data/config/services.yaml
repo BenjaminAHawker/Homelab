@@ -1,0 +1,257 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services
+
+# Tabs - Home, Media, Applications, Tool
+# -----------------------------------------------------
+
+# HOME TAB SERVICES
+- Infrastructure:
+    - Hammerheart: #Proxmox Server - Dell Poweredge T320
+        icon: /images/services/proxmox.png
+        href: {{HOMEPAGE_VAR_HAMMERHEARTURL}}
+        description: Proxmox Server - Dell Poweredge T320
+        siteMonitor: {{HOMEPAGE_VAR_HAMMERHEARTURL}}
+        id: home-service
+    - Rustbane: #Proxmox Server - Dell Optiplex 9020
+        icon: /images/services/proxmox.png
+        href: {{HOMEPAGE_VAR_RUSTBANESERVERURL}}
+        description: Proxmox Server - Dell Optiplex 9020
+        siteMonitor: {{HOMEPAGE_VAR_RUSTBANESERVERURL}}
+        id: home-service
+    - NetData:
+        icon: /images/services/netdata.png
+        href: {{HOMEPAGE_VAR_NETDATAURL}}
+        description: Server Monitoring
+        siteMonitor: {{HOMEPAGE_VAR_NETDATAURL}}
+        id: home-service
+    - Authentik:
+        icon: /images/services/authentik.png
+        href: {{HOMEPAGE_VAR_AUTHENTIKURL}}
+        description: Authentik
+        siteMonitor: {{HOMEPAGE_VAR_AUTHENTIKURL}}
+        id: home-service
+- Routing And Firewall:
+    - Xfinity Modem:
+        icon: /images/services/xfinity.png
+        href: {{HOMEPAGE_VAR_XFINITYMODEMURL}}
+        description: Xfinity Modem
+        siteMonitor: {{HOMEPAGE_VAR_XFINITYMODEMURL}}
+        id: home-service
+    - OPNsense:
+        icon: /images/services/opnsense.png
+        href: {{HOMEPAGE_VAR_OPNSENSEURL}}
+        description: OPNsense Firewall
+        siteMonitor: {{HOMEPAGE_VAR_OPNSENSEURL}}
+        id: home-service
+    - MikroTik Switch:
+        icon: /images/services/mikrotik.png
+        href: {{HOMEPAGE_VAR_MIKROTIKSWITCHURL}}
+        description: MikroTik Switch
+        siteMonitor: {{HOMEPAGE_VAR_MIKROTIKSWITCHURL}}
+        id: home-service
+    - TP-Link Switch:
+        icon: /images/services/tplink.png
+        href: {{HOMEPAGE_VAR_TPLINKSWITCHURL}}
+        description: TP-Link Switch
+        siteMonitor: {{HOMEPAGE_VAR_TPLINKSWITCHURL}}
+        id: home-service
+    - UniFi Controller:
+        icon: /images/services/unifi.png
+        href: {{HOMEPAGE_VAR_UNIFICONTROLLERURL}}
+        description: UniFi Controller
+        siteMonitor: {{HOMEPAGE_VAR_UNIFICONTROLLERURL}}
+        id: home-service
+    - AdGuard:
+        icon: /images/services/adguard.png
+        href: {{HOMEPAGE_VAR_ADGUARDURL}}
+        description: AdGuard Home
+        siteMonitor: {{HOMEPAGE_VAR_ADGUARDURL}}
+        id: home-service
+    - Nginx Proxy Manager:
+        icon: /images/services/nginx.png
+        href: {{HOMEPAGE_VAR_NGINXPROXYURL}}
+        description: Nginx Proxy Manager
+        siteMonitor: {{HOMEPAGE_VAR_NGINXPROXYURL}}
+        id: home-service
+- Management:
+    - Portainer:
+        icon: /images/services/portainer.png
+        href: {{HOMEPAGE_VAR_PORTAINERURL}}
+        description: Portainer
+        siteMonitor: {{HOMEPAGE_VAR_PORTAINERURL}}
+        id: home-service
+    - Tautulli:
+        icon: /images/services/tautulli.png
+        href: {{HOMEPAGE_VAR_TAUTULLIURL}}
+        description: Tautulli
+        siteMonitor: {{HOMEPAGE_VAR_TAUTULLIURL}}
+        id: home-service
+    - qBittorrent:
+        icon: /images/services/qbittorrent.png
+        href: {{HOMEPAGE_VAR_QBITTORRENTURL}}
+        description: qBittorrent
+        siteMonitor: {{HOMEPAGE_VAR_QBITTORRENTURL}}
+        id: home-service
+    - SABnzbd:
+        icon: /images/services/sabnzbd.png
+        href: {{HOMEPAGE_VAR_SABNZBDURL}}
+        description: SABnzbd
+        siteMonitor: {{HOMEPAGE_VAR_SABNZBDURL}}
+        id: home-service
+    - Scrutiny:
+        icon: /images/services/scrutiny.png
+        href: {{HOMEPAGE_VAR_SCRUTINYURL}}
+        description: Scrutiny
+        siteMonitor: {{HOMEPAGE_VAR_SCRUTINYURL}}
+        id: home-service
+
+# MEDIA TAB SERVICES
+- Media:
+    - Overseerr:
+        icon: /images/services/overseerr.png
+        href: {{HOMEPAGE_VAR_OVERSEERRURL}}
+        description: Overseerr
+        siteMonitor: {{HOMEPAGE_VAR_OVERSEERRURL}}
+        id: media-service
+    - AudioBookShelf:
+        icon: /images/services/audiobookshelf.png
+        href: {{HOMEPAGE_VAR_AUDIOBOOKSHELFURL}}
+        description: AudioBookShelf
+        siteMonitor: {{HOMEPAGE_VAR_AUDIOBOOKSHELFURL}}
+        id: media-service
+    - Calibre-Web:
+        icon: /images/services/calibre-web.png
+        href: {{HOMEPAGE_VAR_CALIBREWEBURL}}
+        description: Calibre-Web
+        siteMonitor: {{HOMEPAGE_VAR_CALIBREWEBURL}}
+        id: media-service
+    - Calibre:
+        icon: /images/services/calibre.png
+        href: {{HOMEPAGE_VAR_CALIBREURL}}
+        description: Calibre
+        siteMonitor: {{HOMEPAGE_VAR_CALIBREURL}}
+        id: media-service
+    - Plex:
+        icon: /images/services/plex.png
+        href: {{HOMEPAGE_VAR_PLEXURL}}
+        description: Plex
+        siteMonitor: {{HOMEPAGE_VAR_PLEXURL}}
+        id: media-service
+    - Komga:
+        icon: /images/services/komga.png
+        href: {{HOMEPAGE_VAR_KOMGAURL}}
+        description: Komga
+        siteMonitor: {{HOMEPAGE_VAR_KOMGAURL}}
+        id: media-service
+    - RomM:
+        icon: /images/services/romm.png
+        href: {{HOMEPAGE_VAR_ROMMURL}}
+        description: RomM
+        siteMonitor: {{HOMEPAGE_VAR_ROMMURL}}
+        id: media-service
+    - Stash:
+        icon: /images/services/stash.png
+        href: {{HOMEPAGE_VAR_STASHURL}}
+        description: Stash
+        siteMonitor: {{HOMEPAGE_VAR_STASHURL}}
+        id: media-service
+
+# APPLICATIONS TAB SERVICES
+- Applications:
+    - WikiJs:
+        icon: /images/services/wikijs.png
+        href: {{HOMEPAGE_VAR_WIKIJSDOCSURL}}
+        description: Wiki.js
+        siteMonitor: {{HOMEPAGE_VAR_WIKIJSDOCSURL}}
+        id: app-service
+    - HomeBox:
+        icon: /images/services/homebox.png
+        href: {{HOMEPAGE_VAR_HOMEBOXURL}}
+        description: HomeBox
+        siteMonitor: {{HOMEPAGE_VAR_HOMEBOXURL}}
+        id: app-service
+    - Grampsweb:
+        icon: /images/services/gramps.png
+        href: {{HOMEPAGE_VAR_GRAMPSWEBURL}}
+        description: Gramps Web
+        siteMonitor: {{HOMEPAGE_VAR_GRAMPSWEBURL}}
+        id: app-service
+    - Mealie: 
+        icon: /images/services/mealie.png
+        href: {{HOMEPAGE_VAR_MEALIEURL}}
+        description: Mealie
+        siteMonitor: {{HOMEPAGE_VAR_MEALIEURL}}
+        id: app-service
+    - Actual Budget:
+        icon: /images/services/actualbudget.png
+        href: {{HOMEPAGE_VAR_ACTUALBUDGETURL}}
+        description: Actual Budget
+        siteMonitor: {{HOMEPAGE_VAR_ACTUALBUDGETURL}}
+        id: app-service
+    - Maybe Finance:
+        icon: /images/services/maybe.png
+        href: {{HOMEPAGE_VAR_MAYBEFINANCEURL}}
+        description: Maybe Finance
+        siteMonitor: {{HOMEPAGE_VAR_MAYBEFINANCEURL}}
+        id: app-service
+    
+- Content Management:
+    - Radarr:
+        icon: /images/services/radarr.png
+        href: {{HOMEPAGE_VAR_RADARRURL}}
+        description: Radarr
+        siteMonitor: {{HOMEPAGE_VAR_RADARRURL}}
+        id: app-service
+    - Sonarr:
+        icon: /images/services/sonarr.png
+        href: {{HOMEPAGE_VAR_SONARRURL}}
+        description: Sonarr
+        siteMonitor: {{HOMEPAGE_VAR_SONARRURL}}
+        id: app-service
+    - Lidarr:
+        icon: /images/services/lidarr.png
+        href: {{HOMEPAGE_VAR_LIDARRURL}}
+        description: Lidarr
+        siteMonitor: {{HOMEPAGE_VAR_LIDARRURL}}
+        id: app-service
+    - Kapowarr:
+        icon: /images/services/kapowarr.png
+        href: {{HOMEPAGE_VAR_KAPOWARRURL}}
+        description: Kapowarr
+        siteMonitor: {{HOMEPAGE_VAR_KAPOWARRURL}}
+        id: app-service
+    - Whisparr:
+        icon: /images/services/whisparr.png
+        href: {{HOMEPAGE_VAR_WHISPARRURL}}
+        description: Whisparr
+        siteMonitor: {{HOMEPAGE_VAR_WHISPARRURL}}
+        id: app-service
+
+# TOOL TAB SERVICES
+- Tools:
+    - Dozzle:
+        icon: /images/services/doodle.png
+        href: {{HOMEPAGE_VAR_DOODLEURL}}
+        description: Doodle
+        siteMonitor: {{HOMEPAGE_VAR_DOODLEURL}}
+        id: tool-service
+    - Linkwarden:
+        icon: /images/services/linkwarden.png
+        href: {{HOMEPAGE_VAR_LINKWARDENURL}}
+        description: Linkwarden
+        siteMonitor: {{HOMEPAGE_VAR_LINKWARDENURL}}
+        id: tool-service
+    - Lube Logger:
+        icon: /images/services/lubelogger.png
+        href: {{HOMEPAGE_VAR_LUBELOGGERURL}}
+        description: Lube Logger
+        siteMonitor: {{HOMEPAGE_VAR_LUBELOGGERURL}}
+        id: tool-service
+    - Draw.io:
+        icon: /images/services/drawio.png
+        href: {{HOMEPAGE_VAR_DRAWIOURL}}
+        description: Draw.io
+        siteMonitor: {{HOMEPAGE_VAR_DRAWIOURL}}
+        id: tool-service
+    

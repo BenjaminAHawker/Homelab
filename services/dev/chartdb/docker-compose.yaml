@@ -1,0 +1,19 @@
+services:
+  chartdb:
+    image: ghcr.io/chartdb/chartdb:latest
+    container_name: chartdb
+    env_file:
+      - .env
+    ports:
+      - "${CHARTDB_PORT}:80" # adjust host port as needed (80 is default container port)
+    environment:
+      # required for AI export / features
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      # optionally disable analytics
+      - DISABLE_ANALYTICS=true
+      # if you prefer a custom OpenAI endpoint instead of key:
+      # - OPENAI_API_ENDPOINT=${OPENAI_API_ENDPOINT}
+      # - LLM_MODEL_NAME=${LLM_MODEL_NAME}
+    restart: unless-stopped
+    volumes:
+    - ./data/config:/app/data
