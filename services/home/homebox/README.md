@@ -104,7 +104,7 @@ http://${Host}:${HOMEBOX_PORT}
 
 ## 🧠 About Homebox
 
-[Homebox](https://github.com/sysadminsmedia/homebox) is a self-hosted file and document management system. It provides a powerful interface for organizing, searching, and managing your files.
+[Homebox](https://github.com/sysadminsmedia/homebox) is a self-hosted inventory and organization system for managing household items. It provides a powerful interface for organizing, searching, and managing your home inventory.
 
 - Docker image: [sysadminsmedia/homebox](https://hub.docker.com/r/sysadminsmedia/homebox)
 - 📦 GitHub: [sysadminsmedia/homebox](https://github.com/sysadminsmedia/homebox)
