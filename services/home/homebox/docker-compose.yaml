@@ -1,0 +1,17 @@
+services:
+  homebox:
+    image: ghcr.io/sysadminsmedia/homebox:latest
+#   image: ghcr.io/sysadminsmedia/homebox:latest-rootless
+    container_name: homebox
+    restart: always
+    env_file:
+      - .env
+    environment:
+    - HBOX_LOG_LEVEL=info
+    - HBOX_LOG_FORMAT=text
+    - HBOX_WEB_MAX_FILE_UPLOAD=100
+    - HBOX_OPTIONS_ALLOW_ANALYTICS=false
+    volumes:
+      - ./data/config:/data/
+    ports:
+      - ${HOMEBOX_PORT}:7745
