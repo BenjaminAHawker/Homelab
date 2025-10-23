@@ -1,0 +1,20 @@
+services:
+#---------------------------------------------------------------------#
+#     sabnzbd - UseNet Client.                                        #
+#---------------------------------------------------------------------#
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    restart: unless-stopped
+    env_file: 
+      - .env
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./data/config:/config 
+      - ${SABNZBD_DOWNLOAD_PATH}:/data/usenet # Path to store downloaded data
+      - ${SABNZBD_MEDIA_PATH}:/media # Path to main media directory for proper file handling
+    ports:
+      - ${SABNZBD_PORT}:8088

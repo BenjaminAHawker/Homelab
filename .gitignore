@@ -2,7 +2,7 @@
 services/*/*/data/**
 
 # But keep the homepage service's data folder
-!services/home/homepage/data/
+!services/home/homepage/data/**
 
 # Ignore environment variables
 **/.env

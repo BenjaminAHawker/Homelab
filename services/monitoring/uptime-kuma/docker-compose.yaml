@@ -1,0 +1,11 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:2
+    restart: unless-stopped
+    env_file: 
+      - .env
+    volumes:
+      - ./data/config:/app/data
+    ports:
+      # <Host Port>:<Container Port>
+      - ${UPTIME_KUMA_PORT}:3001
