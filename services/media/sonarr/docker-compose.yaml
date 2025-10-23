@@ -11,6 +11,6 @@ services:
       - TZ=${TZ}
     volumes:
       - ./data/config:/config
-      - ${DATA_PATH}:/data
+      - ${SONARR_DATA_PATH}:/data # Location for media storage
     ports:
       - ${SONARR_PORT}:8989
