@@ -3,7 +3,7 @@ services:
 #     qBittorrent - Torrent Management.                               #
 #---------------------------------------------------------------------#
   qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent:latest
+    image: lscr.io/linuxserver/qbittorrent:libtorrentv1
     container_name: qbittorrent
     restart: unless-stopped
     env_file: 
@@ -19,9 +19,39 @@ services:
       - ./data/config:/config
       - ${QBITTORRENT_TORRENTS_PATH}:/data/torrents # Path to store torrent data
       - ${QBITTORRENT_MEDIA_PATH}:/media # Path to main media directory for proper file handling
+    network_mode: service:gluetun
+    depends_on:
+      gluetun:
+        condition: service_healthy
+
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - VPN_SERVICE_PROVIDER=${GLUETUN_VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=${GLUETUN_VPN_TYPE}
+      - WIREGUARD_PRIVATE_KEY=${GLUETUN_WIREGUARD_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${GLUETUN_WIREGUARD_ADDRESSES}
+      - SERVER_COUNTRIES=${GLUETUN_SERVER_COUNTRIES}
+    volumes:
+      - ./data/gluetun:/gluetun
     ports:
+      - ${GLUETUN_HTTP_PORT}:${GLUETUN_HTTP_PORT}/tcp #gluetun HTTP control server
+      - ${GLUETUN_WIREGUARD_PORT}:51820/udp # Wireguard Port
       - ${QBITTORRENT_WEBUI_PORT}:${QBITTORRENT_WEBUI_PORT} # qBittorrent Web UI
       - ${QBITTORRENT_LISTENING_PORT}:${QBITTORRENT_LISTENING_PORT} # qBittorrent Listening port
       - ${QBITTORRENT_PORT}:${QBITTORRENT_PORT} # qbittorrent
       - ${QBITTORRENT_PORT}:${QBITTORRENT_PORT}/udp # qbittorrent
-
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    healthcheck:
+      test: ["CMD-SHELL", "ping -c 1 -W 1 8.8.8.8 || exit 1"] # Checks internet connectivity
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s # Give Gluetun time to establish VPN connection

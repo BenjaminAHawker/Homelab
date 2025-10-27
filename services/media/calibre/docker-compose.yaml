@@ -21,8 +21,8 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - .data/config:/config
-      - .data/library:/library # Path to the Calibre library
+      - ./data/config:/config
+      - ./data/library:/library # Path to the Calibre library
       - ${CALIBRE_DATA_PATH}:/data # Path to the storage location of your books to import into Calibre
 
   #---------------------------------------------------------------------#
@@ -37,11 +37,11 @@ services:
     env_file:
       - .env
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TZ}
       - DOCKER_MODS=linuxserver/mods:universal-calibre # optional
       - OAUTHLIB_RELAX_TOKEN_SCOPE=1                   # optional
     volumes:
-      - .data/config:/config
-      - .data/library:/library # Path to the Calibre library 
+      - ./data/config:/config
+      - ./data/library:/library # Path to the Calibre library 
