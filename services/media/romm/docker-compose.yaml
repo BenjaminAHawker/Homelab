@@ -22,7 +22,6 @@ services:
       # Metadata Provider Settings
       - IGDB_CLIENT_ID=${IGDB_CLIENT_ID} # Generate an ID and SECRET in IGDB
       - IGDB_CLIENT_SECRET=${IGDB_CLIENT_SECRET} # https://api-docs.igdb.com/#account-creation
-      - MOBYGAMES_API_KEY=${MOBYGAMES_KEY} # https://www.mobygames.com/info/api/
       - STEAMGRIDDB_API_KEY=${STEAMGRID_KEY} # https://github.com/rommapp/romm/wiki/Generate-API-Keys#steamgriddb
       - SCREENSCRAPER_USER=${SCREENSCRAPER_USER} # https://www.screenscraper.fr/apidocs/v4.0/
       - SCREENSCRAPER_PASSWORD=${SCREENSCRAPER_PASS} # https://www.screenscraper.fr/apidocs/v4.0/
@@ -30,7 +29,7 @@ services:
       - PLAYMATCH_API_ENABLED=true # Set to true to enable PlayMatch API
       - RETROACHIEVEMENTS_API_KEY=${RETROACHIEVEMENTS_KEY} # https://retroachievements.org/
       - ENABLE_SCHEDULED_RETROACHIEVEMENTS_PROGRESS_SYNC=true # Set to true to enable scheduled RetroAchievements progress sync
-      - SCHEDULED_RETROACHIEVEMENTS_PROGRESS_SYNC_CRON="0 4 * * *" # Cron expression for scheduled RetroAchievements progress sync (default: daily at 4 AM)
+      - SCHEDULED_RETROACHIEVEMENTS_PROGRESS_SYNC_CRON=0 4 * * * # Cron expression for scheduled RetroAchievements progress sync (default: daily at 4 AM)
       # OIDC SETTINGS
       - OIDC_ENABLED=${OIDC_ENABLED-false} # Set to true to enable OIDC
       - OIDC_PROVIDER=${OIDC_PROVIDER} # Set to the OIDC provider URL
@@ -45,7 +44,7 @@ services:
       - ./data/romm/redis:/redis-data
       - ${ROMM_LIBRARY_PATH}:/romm/library
       - ./data/romm/assets:/romm/assets
-      - ./data/romm/config:/romm/config
+      - ./config:/romm/config
     depends_on:
       database:
         condition: service_healthy
