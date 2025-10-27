@@ -16,7 +16,7 @@ services:
       - TORRENTING_PORT=${QBITTORRENT_PORT}
       - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:qbittorrent
       - TP_COMMUNITY_THEME=true
-      - TP_THEME=catppuccin-{Macchiato}
+      - TP_THEME=catppuccin-Macchiato
     volumes:
       - ./data/config:/config
       - ${QBITTORRENT_TORRENTS_PATH}:/data/torrents # Path to store torrent data
