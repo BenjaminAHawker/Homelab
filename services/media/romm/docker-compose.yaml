@@ -30,6 +30,8 @@ services:
       - RETROACHIEVEMENTS_API_KEY=${RETROACHIEVEMENTS_KEY} # https://retroachievements.org/
       - ENABLE_SCHEDULED_RETROACHIEVEMENTS_PROGRESS_SYNC=true # Set to true to enable scheduled RetroAchievements progress sync
       - SCHEDULED_RETROACHIEVEMENTS_PROGRESS_SYNC_CRON=0 4 * * * # Cron expression for scheduled RetroAchievements progress sync (default: daily at 4 AM)
+      - FLASHPOINT_API_ENABLED=true # Set to true to enable Flashpoint API
+      - HLTB_API_ENABLED=true # Set to true to enable HowLongToBeat API
       # OIDC SETTINGS
       - OIDC_ENABLED=${OIDC_ENABLED-false} # Set to true to enable OIDC
       - OIDC_PROVIDER=${OIDC_PROVIDER} # Set to the OIDC provider URL
