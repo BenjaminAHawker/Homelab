@@ -23,6 +23,8 @@ This setup:
 
 ## 📁 Directory Structure
 
+This section outlines the directory structure for the Sonarr setup.
+
 ```plaintext
 sonarr/
 ├── docker-compose.yaml
@@ -30,6 +32,8 @@ sonarr/
 ├── setup.sh               # Startup script
 └── data/
     └── config/            # Sonarr config files
+        ├── anime/         # Configuration files for managing anime content
+        └── tv/            # Configuration files for managing TV show content
 ```
 
 ---
@@ -68,7 +72,7 @@ SONARR_PORT=8989
 SONARR_DATA_PATH=/mnt/storage/sonarr/data
 ```
 
-⚠️ Rename to `.env` and do not commit it to source control.
+⚠️ **Important:** Rename the file to `.env` and **do not commit it to source control**.
 
 ---
 
@@ -97,7 +101,7 @@ docker compose down
 After the container is up, access the Sonarr Web UI at:
 
 ```plaintext
-http://${Host}:${SONARR_PORT}
+http://localhost:${SONARR_PORT} (replace "localhost" with your server's actual hostname or IP address)
 ```
 
 ---
@@ -106,6 +110,10 @@ http://${Host}:${SONARR_PORT}
 
 - Configuration files are stored in `./data/config`
 - Back up the config directory as needed
+- To restore from a backup, replace the contents of `./data/config` with your backup files and ensure proper ownership by running:
+  ```bash
+  chown -R 1000:1000 ./data/config
+  ```
 
 ---
 
@@ -116,8 +124,7 @@ http://${Host}:${SONARR_PORT}
 - Docker image: [linuxserver/sonarr](https://hub.docker.com/r/linuxserver/sonarr)
 - 📦 GitHub: [Sonarr/Sonarr](https://github.com/Sonarr/Sonarr)
 
----
 
 ## 👨‍👩‍👧‍👦 Hawk Home
 
-Part of the Hawk Home homelab system — a modular, self-hosted stack for the Hawker family.
+Part of the Hawk Home homelab system — a modular, self-hosted stack designed to simplify and centralize home server management for the Hawker family. It includes various services for media, storage, and automation, all configured to work seamlessly together. For more details, visit the [Hawk Home Documentation](../../../docs/README.md).

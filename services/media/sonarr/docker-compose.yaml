@@ -1,7 +1,7 @@
 services:
-  sonarr:
+  sonarr-anime:
     image: lscr.io/linuxserver/sonarr:latest
-    container_name: sonarr
+    container_name: sonarr-anime
     restart: unless-stopped
     env_file: 
       - .env
@@ -10,7 +10,22 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ./data/config:/config
+      - ./data/config/anime:/config
       - ${SONARR_DATA_PATH}:/data # Location for media storage
     ports:
-      - ${SONARR_PORT}:8989
+      - ${SONARR_ANIME_PORT}:8989 # Dynamic port mapping for Sonarr UI
+  sonarr-tv:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr-tv
+    restart: unless-stopped
+    env_file: 
+      - .env
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./data/config/tv:/config
+      - ${SONARR_DATA_PATH}:/data # Location for media storage
+    ports:
+      - ${SONARR_TV_PORT}:8989 # Dynamic port mapping for Sonarr UI
