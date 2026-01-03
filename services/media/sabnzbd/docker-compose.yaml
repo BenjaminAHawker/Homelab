@@ -9,12 +9,12 @@ services:
     env_file: 
       - .env
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-ETC/UTC}
     volumes:
       - ./data/config:/config 
       - ${SABNZBD_DOWNLOAD_PATH}:/data/usenet # Path to store downloaded data
       - ${SABNZBD_MEDIA_PATH}:/media # Path to main media directory for proper file handling
     ports:
-      - ${SABNZBD_PORT}:8088
+      - ${SABNZBD_PORT}:8080 # WebUI Port
