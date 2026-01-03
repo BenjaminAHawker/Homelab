@@ -1,0 +1,23 @@
+services:
+  posterizarr:
+    image: ghcr.io/fscorrupt/posterizarr:latest
+    container_name: posterizarr
+    env_file:
+      - .env
+    environment:
+      - TZ=${TZ}
+      - TERM="xterm"
+      - RUN_TIME="disabled"
+      # OPTIONAL: This tells uvicorn to run on port 9000 inside the container
+      #- APP_PORT=9000      
+      # OPTIONAL: Disable UI
+      #- DISABLE_UI=true   
+    restart: "unless-stopped"
+    user: "${PUID}:${PGID}"
+    ports:
+      - ${POSTERIZARR_PORT}:8000 # if you want to change the port inside container, also change APP_PORT env variable
+    volumes:
+      - "./data/config:/config:rw"
+      - "./data/assets:/assets:rw"
+      - "./data/assetsbackup:/assetsbackup:rw"
+      - "./data/manualassets:/manualassets:rw"
