@@ -1,5 +1,5 @@
 <p align="center">
-  <strong style="font-size: 1.5em;">Hawk Home — Homebox</strong>
+    <strong style="font-size: 1.5em;">Hawk Home — Authentik</strong>
 </p>
 
 ---
@@ -9,7 +9,7 @@
 ![License](https://img.shields.io/badge/license-private-lightgrey?style=flat-square)
 ![Maintainer](https://img.shields.io/badge/maintainer-HawkerFamily-purple?style=flat-square)
 
-`Homebox` is a self-hosted inventory and organization system. It allows you to organize, search, and manage your inventory with ease. This containerized version is configured for use in the **Hawk Home** homelab stack, with external mounts for persistent data storage.
+`Authentik` is an open-source identity provider. It enables authentication, authorization, and user management for your applications. This containerized version is configured for use in the **Hawk Home** homelab stack, with external mounts for persistent data storage.
 
 This setup:
 - Loads environment variables from a local `.env` file
@@ -20,11 +20,10 @@ This setup:
 ## Directory Structure
 
 ```plaintext
-homebox/
+authentik/
 ├── docker-compose.yaml
 ├── .env                   # Required environment config
-└── data/
-    └── config/            # Homebox config files
+└── data/                  # Authentik config files
 ```
 
 ---
@@ -35,7 +34,7 @@ All secrets and hostnames are defined in the `.env` file.
 
 ```env
 # Ports
-HOMEBOX_PORT=8085
+AUTHENTIK_PORT=9000
 ```
 
 > **Important** Rename to `.env` and do not commit it to source control.
@@ -49,7 +48,7 @@ docker compose up -d
 ```
 This will:
 - Mount the config directory
-- Start Homebox on the configured port
+- Start Authentik on the configured port
 - Preserve data across restarts
 
 ---
@@ -64,10 +63,10 @@ docker compose down
 
 ## Access
 
-After the container is up, access the Homebox Web UI at:
+After the container is up, access the Authentik Web UI at:
 
 ```plaintext
-http://${Host}:${HOMEBOX_PORT}
+http://${Host}:${AUTHENTIK_PORT}
 ```
 
 ---
@@ -79,12 +78,12 @@ http://${Host}:${HOMEBOX_PORT}
 
 ---
 
-## About Homebox
+## About Authentik
 
-[Homebox](https://github.com/sysadminsmedia/homebox) is a self-hosted inventory and organization system for managing household items. It provides a powerful interface for organizing, searching, and managing your home inventory.
+[Authentik](https://goauthentik.io/) is an open-source identity provider designed to handle authentication, authorization, and user management for modern applications.
 
-- Docker image: [sysadminsmedia/homebox](https://hub.docker.com/r/sysadminsmedia/homebox)
-- GitHub: [sysadminsmedia/homebox](https://github.com/sysadminsmedia/homebox)
+- Docker image: [goauthentik/server](https://hub.docker.com/r/goauthentik/server)
+- GitHub: [goauthentik/authentik](https://github.com/goauthentik/authentik)
 
 ---
 
