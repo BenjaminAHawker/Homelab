@@ -1,0 +1,17 @@
+services:
+  composetoolbox:
+    image: ghcr.io/bluegoosemedia/composetoolbox
+    container_name: compose-toolbox
+    restart: unless-stopped
+    env_file:
+      .env
+    ports:
+      - ${COMPOSE_TOOLBOX_PORT:-3000}:3000
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./data/composetoolbox:/app/data
+    labels:
+      - "diun.enable=true"
+      - "diun.include_tags=latest"
+      - "diun.watch_repo=true"

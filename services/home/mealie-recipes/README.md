@@ -24,7 +24,7 @@ This setup:
 - Supports optional OIDC authentication (e.g., Authentik)  
 ---
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```plaintext
 mealie/
@@ -35,23 +35,7 @@ mealie/
     └── postgres/          # Database data
 ```
 
-## 🔧 Setup Instructions
-
-Before running the containers, use the provided setup script to create the required folders and apply the correct ownership for Docker volumes.
-
-1. Run the Setup Script (as root)
-
-```bash
-cd services/mealie-recipes
-chmod +x setup.sh
-./setup.sh
-```
-- Creates ./data/mealie and ./data/postgres</br>
-- Applies chown -R 1000:1000 data/ so containers have proper access
-
-🧑‍💻 This script is intended to be run as root. If you’re not root, prepend with sudo.
-
-## ⚙️ Environment Configuration
+## Environment Configuration
 
 All secrets and hostnames are defined in the .env file.
 
@@ -75,7 +59,7 @@ MEALIE_OIDC_REMEMBER_ME=
 ```
 ⚠️ Rename to .env and do not commit it to source control.
 
-## 🚀 Start the Service
+## Start the Service
 
 ```bash
 docker compose up -d
@@ -88,25 +72,25 @@ This will:
 
 Access the web UI at http://{host-ip}:${MEALIE_PORT}
 
-## 🛑 Stop the Service
+## Stop the Service
 ```bash
 docker compose down
 ```
 
-## 🔄 Backup Notes
+## Backup Notes
 - Mealie data (recipes, images, config) is stored in ./data/mealie/
 - PostgreSQL data is stored in ./data/postgres/
 - Backup both directories for a complete restore
 
-## 🧠 About Mealie
+## About Mealie
 
 [Mealie Recipes](https://docs.mealie.io/) is a self-hosted recipe manager.
 It offers recipe collection, meal planning, grocery lists, and optional authentication integrations.
 
-- 🌐 Website: [https://docs.mealie.io/](https://docs.mealie.io/)
-- 📦 GitHub: [mealie-recipes/mealie](https://github.com/mealie-recipes/mealie)
+- Website: [https://docs.mealie.io/](https://docs.mealie.io/)
+- GitHub: [mealie-recipes/mealie](https://github.com/mealie-recipes/mealie)
 
 
-## 👨‍👩‍👧‍👦 Hawk Home
+## Hawk Home
 
 Part of the Hawk Home homelab system — a modular, self-hosted stack for the Hawker family.
