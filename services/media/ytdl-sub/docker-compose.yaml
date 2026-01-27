@@ -1,0 +1,39 @@
+services:
+  ytdl-sub:
+    # The GUI image variant:
+    image: ghcr.io/jmbannon/ytdl-sub-gui:latest
+    # Or use the headless image variant:
+    # image: ghcr.io/jmbannon/ytdl-sub:latest
+    # For CPU/GPU passthrough, use the GUI image above or the headless Ubuntu image:
+    # image: ghcr.io/jmbannon/ytdl-sub:ubuntu-latest
+    container_name: ytdl-sub
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - TZ=${TZ}
+      # Set these as appropriate so your users can access the downloaded files in
+      # your library:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - CRON_SCHEDULE=${YTDL_CRON_SCHEDULE}
+      - CRON_RUN_ON_START=false
+      # Optionally passthrough your NVidia GPU:
+      # - NVIDIA_DRIVER_CAPABILITIES=all
+      # - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - ./data/config:/config
+      - ${DATA_PATH}:/media
+      - ./data/cookies.txt:/config/cookies.txt  # optional
+    # Not necessary for the headless image variant:
+    ports:
+      - ${YTDL_PORT}:8443
+    # Optionally passthrough the CPU for hardware acceleration:
+    # devices:
+    #   - /dev/dri:/dev/dri
+    # Optionally passthrough the GPU:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - capabilities: ["gpu"]

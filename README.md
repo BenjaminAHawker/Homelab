@@ -2,13 +2,16 @@
   <img src="assets/img/hhlogo.png" alt="Hawk Home Logo" width="60" style="border-radius: 20px;" />
 </p>
 
-<h1 align="left">🏡 Hawk Home -- Personal Homelab</h1>
+<h1 align="left">Hawk Home -- Personal Homelab</h1>
 
 Welcome to **Hawk Home**, a private homelab environment built for learning, automation, and experimentation. This project hosts self-managed services for the Hawker family, ranging from home automation and media to workflows and monitoring — all containerized and orchestrated using Docker Compose.
 
 ---
 
-## 🗂️ Services Overview
+> **Note:**  
+> All services have been run and tested personally by me. The compose files for each service were created using documentation from appropriate sources. AI-assisted tools were used solely to create README files for each service.
+
+## Services Overview
 
 ### Core Services
 - **Nginx Proxy Manager**: Reverse proxy for managing and securing web services with a user-friendly interface.
@@ -16,6 +19,7 @@ Welcome to **Hawk Home**, a private homelab environment built for learning, auto
 - **Gotify**: Self-hosted notification server for sending and receiving messages.
 - **N8N**: Workflow automation tool for connecting and automating tasks between different services.
 - **Portainer**: Web-based Docker management tool for managing containers, images, and networks.
+- **Authentik**: An open-source identity provider for authentication and authorization, supporting OIDC, SAML, and LDAP for secure access management.
 
 ### Home Services
 - **Homebox**: Self-hosted file and document management system.
@@ -34,10 +38,8 @@ Welcome to **Hawk Home**, a private homelab environment built for learning, auto
 - **Prowlarr**: Indexer manager for managing and integrating indexers with other media tools.
 - **Radarr**: Movie collection manager for automatically downloading and organizing movies.
 - **Sonarr**: TV show collection manager for automatically downloading and organizing TV series.
-- **Whisparr**: Adult content manager for automatically downloading and organizing media.
 - **Sabnzbd**: Usenet downloader for managing and downloading NZB files.
-- **Overseer**: Media request management tool for Plex, Radarr, and Sonarr.
-- **Stashapp**: Self-hosted adult content organizer with tagging and metadata features.
+- **Jellyseerr**: Media request management tool for Plex, Radarr, and Sonarr.
 
 ### Automation & Monitoring
 - **Speedtest Tracker**: Self-hosted tool for tracking internet speed test results over time.
@@ -49,10 +51,11 @@ Welcome to **Hawk Home**, a private homelab environment built for learning, auto
 
 ### Development & Experimentation
 - **ChartDB**: Database diagrams editor that allows you to visualize and design your DB with a single query.
+- **ComposeToolbox**: 
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 1. Clone the repository:
    ```bash
@@ -73,7 +76,7 @@ Welcome to **Hawk Home**, a private homelab environment built for learning, auto
 ---
 
 
-## 🛠️ Maintenance
+## Maintenance
 
 - **Backups**: Ensure persistent data directories (e.g., `./data/`) are backed up regularly.
 - **Updates**: Pull the latest Docker images and restart services:
@@ -84,6 +87,6 @@ Welcome to **Hawk Home**, a private homelab environment built for learning, auto
 
 ---
 
-## 👨‍👩‍👧‍👦 About Hawk Home
+## About Hawk Home
 
 Hawk Home is a modular, self-hosted stack designed for the Hawker family. It is a constantly evolving project aimed at improving automation, media management, and learning new technologies.

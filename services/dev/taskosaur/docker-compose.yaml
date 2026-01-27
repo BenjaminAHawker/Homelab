@@ -1,0 +1,107 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    container_name: taskosaur_postgres
+    image: postgres:16
+    ports:
+      - ${POSTGRES_PORT}:5432
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - taskosaur-network
+    restart: unless-stopped
+
+  redis:
+    container_name: taskosaur_redis
+    env_file:
+      .env
+    image: redis:latest
+    ports:
+      - ${REDIS_PORT}:6379
+    volumes:
+      - ./data/redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - taskosaur-network
+    restart: unless-stopped
+
+  app:
+    env_file:
+      - .env
+    container_name: taskosaur_app
+    image: taskosaur/taskosaur:latest
+    environment:
+      # Node Environment
+      NODE_ENV: production
+
+      # Database Configuration
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/${POSTGRES_DB}
+
+      # Redis Configuration
+      REDIS_HOST: redis
+      REDIS_PORT: ${REDIS_PORT}
+
+      # Application URLs
+      FRONTEND_URL: http://localhost:3000
+      CORS_ORIGIN: http://localhost:3000
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:3000/api
+
+      # Security - CHANGE THESE VALUES!
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+
+      # Email Configuration (optional)
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-noreply@taskosaur.com}
+
+      # File Upload
+      UPLOAD_DEST: ./uploads
+      MAX_FILE_SIZE: 10485760
+
+      # Queue Configuration
+      MAX_CONCURRENT_JOBS: 5
+      JOB_RETRY_ATTEMPTS: 3
+    ports:
+      - "${TASKOSAUR_APP_PORT}:3000"
+    volumes:
+      - ./data/uploads:/app/taskosaur/uploads
+      - ./data/logs:/app/taskosaur/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - taskosaur-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"require('http').get('http://localhost:3000/api/health', (r) => process.exit(r.statusCode === 200 ? 0 : 1))\""]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+networks:
+  taskosaur-network:
+    driver: bridge
