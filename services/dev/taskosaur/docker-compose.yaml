@@ -6,7 +6,7 @@ services:
     ports:
       - ${POSTGRES_PORT}:5432
     env_file:
-      .env
+      - .env
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -42,7 +42,7 @@ services:
 
   app:
     env_file:
-      .env
+      - .env
     container_name: taskosaur_app
     image: taskosaur/taskosaur:latest
     environment:
